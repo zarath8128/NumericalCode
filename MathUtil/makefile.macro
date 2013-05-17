@@ -1,0 +1,12 @@
+#.s   : Asembler source file
+#.cpp : C++ source file
+#.hpp : C++ header file include source
+.SUFFIXES: .s .cpp .hpp
+
+CC = gcc-4.7.3
+CXX = g++-4.7.3 -std=c++11 -I${HOME}/Projects/MathUtil
+
+MATH_UTIL = ${HOME}/Projects/MathUtil
+COMPLEX = ${MATH_UTIL}/Complex
+LIBRARY = ${MATH_UTIL}/Library
+UTILITY = ${MATH_UTIL}/Utility
