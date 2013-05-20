@@ -34,6 +34,30 @@ void DIV_E_C(double *src, double *dist);
 
 #ifdef __cplusplus
 }
+
+template<class T>
+class Complex
+{
+public:
+	
+protected:
+private:
+};
+
+class Complex<double>
+{
+public:
+	double *val;
+	Complex()
+	{
+		val = *Align(buf, 16);
+	}
+protected:
+private:
+	double buf[3];
+};
+
+
 #endif
 
 
