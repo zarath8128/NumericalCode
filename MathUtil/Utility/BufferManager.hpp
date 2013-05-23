@@ -34,7 +34,7 @@ public:
 		buffer[j] = t;
 	}
 
-	void rotate()
+	void reverse()
 	{
 		BufferType *t = buffer[0];
 		for(int i = 0; i < BufferNum - 1; ++i)
@@ -42,7 +42,7 @@ public:
 		buffer[BufferNum - 1] = t;
 	}
 	
-	void reverse()
+	void rotate()
 	{
 		BufferType *t = buffer[BufferNum - 1];
 		for(int i = BufferNum - 1; 0 < i; --i)
@@ -50,7 +50,7 @@ public:
 		buffer[0] = t;
 	}
 	
-	BufferType& operator[](uint32_t index)
+	const BufferType& operator[](uint32_t index)
 	{
 		return *buffer[index];
 	}

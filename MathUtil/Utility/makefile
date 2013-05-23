@@ -1,3 +1,5 @@
+include ../../makefile.macro
+
 include ../makefile.macro
 
 OBJECTS= Align.o
