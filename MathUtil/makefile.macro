@@ -1,0 +1,6 @@
+MATH_UTIL = ${HOME}/Projects/MathUtil
+COMPLEX = ${MATH_UTIL}/Complex
+LIBRARY = ${MATH_UTIL}/Library
+UTILITY = ${MATH_UTIL}/Utility
+
+INCLUDEDIR += ${MATH_UTIL}
