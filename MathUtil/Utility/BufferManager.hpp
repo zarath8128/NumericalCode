@@ -50,11 +50,14 @@ public:
 		buffer[0] = t;
 	}
 	
+<<<<<<< HEAD
 	void initialize(const BufferType initial[])
 	{
 		
 	}
 	
+=======
+>>>>>>> 13d816d7697f2d6430cc54c72c38e86de0ed8422
 	const BufferType& operator[](uint32_t index)
 	{
 		return *buffer[index];

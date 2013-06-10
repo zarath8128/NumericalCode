@@ -19,4 +19,3 @@ LIBRRAYDIR =
 .s.o:
 	$(CC) -c $<
 
-
