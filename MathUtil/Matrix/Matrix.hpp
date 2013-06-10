@@ -5,13 +5,19 @@
 
 namespace zarath
 {
-  template<class Numeric, unsigned int Row, unsigned int Column>
+  template<class Numeric, int Row, int Column>
   class Matrix
   {
   public:
-    Matrix(){}
+    Matrix():val(new Numeric*[Row])
+    {
+      for(int r = 0; r < Row; ++r)
+	val[r] = new Numeric[Column];
+    }
     Matrix(const Matrix& m)
     {
+      Row = m.Row;
+      Column = m.COlumn;
       for(int i = 0; i < Row; ++i)
 	for(int j = 0; j < Column; ++j)
 	  val[i][j] = m.val[i][j];
@@ -89,14 +95,14 @@ namespace zarath
     }
   protected:
   private:
-    Numeric val[Row][Column];
+    Numeric **val;//[Row][Column];
+//    int Row, Column;
   };
 
   //template<class Numeric, unsigned int Row, unsigned int Column>
 //void LUSolve
 
-  template<class Numeric, unsigned int I, unsigned int J, unsigned int K>
-  Matrix<Numeric, I, K> operator*(const Matrix<Numeric, I, J> A, const Matrix<Numeric, J, K> B)
+  /*Matrix<Numeric, I, K> operator*(const Matrix<Numeric, I, J> A, const Matrix<Numeric, J, K> B)
   {
     Matrix<Numeric, I, K> C;
     Numeric t;
@@ -109,7 +115,7 @@ namespace zarath
 	C.SetVal(i, k, t);
       }
     return C;
-  }
+  }*/
 
   template<class Numeric, unsigned int Row, unsigned int Column>
   std::ostream& operator << (std::ostream& dist, const Matrix<Numeric, Row, Column>& m)

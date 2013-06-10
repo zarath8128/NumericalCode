@@ -5,7 +5,7 @@
 
 using namespace zarath;
 
-const int s = 5000;
+const int s = 2000;
 
 int main()
 {

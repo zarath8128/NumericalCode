@@ -5,7 +5,7 @@
 
 using namespace zarath;
 
-const int s = 10000;
+const int s = 30000;
 
 int main()
 {
@@ -22,14 +22,14 @@ int main()
 
 	//std::cout << b << std::endl;
 
-	b.LUComposition(d);
+//	b.LUComposition(d);
 	clock_t t2 = clock();
 	
 	double buf = 0;
 	
 	for(int i = 0; i < s; ++i)
 		for(int j = 0; j < s; ++j)
-			(buf += ((c(i, j) - d(i, j))*(c(i, j) - d(i, j)))/(c(i, j)*c(i ,j)));
+;//			(buf += ((c(i, j) - d(i, j))*(c(i, j) - d(i, j)))/(c(i, j)*c(i ,j)));
 
 	clock_t t3 = clock();	
 	//std::cout << d << std::endl;
