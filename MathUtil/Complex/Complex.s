@@ -51,7 +51,7 @@ DIV_C:
         ret
 
 .global ADD_E_C
-#       void ADD_E_C(double2a v, double2a w, double2a buf)
+#       void ADD_E_C(double2a v, double2a w)
 ADD_E_C:
         MOVAPD  (%RDI)  ,       %XMM0
         MOVAPD  (%RSI)  ,       %XMM1
@@ -60,7 +60,7 @@ ADD_E_C:
         ret
 
 .global SUB_E_C
-#       void SUB_E_C(double2a v, double2a w, double2a buf)
+#       void SUB_E_C(double2a v, double2a w)
 SUB_E_C:
         MOVAPD  (%RSI)  ,       %XMM0
         MOVAPD  (%RDI)  ,       %XMM1
@@ -69,7 +69,7 @@ SUB_E_C:
         ret
 
 .global MUL_E_C
-#       void MUL_E_C(double2a v, double2a w, double2a buf)
+#       void MUL_E_C(double2a v, double2a w)
 MUL_E_C:
         MOVAPD  (%RDI)  ,       %XMM0
         MOVAPD  (%RSI)  ,       %XMM1
@@ -84,7 +84,7 @@ MUL_E_C:
         ret
 
 .global DIV_E_C
-#       void MUL_C(double2a v, double2a w, double2a buf)
+#       void DEV_E_C(double2a v, double2a w)
 DIV_E_C:
         MOVAPD  (%RSI)  ,       %XMM0
         MOVAPD  (%RDI)  ,       %XMM1

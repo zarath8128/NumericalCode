@@ -35,26 +35,34 @@ void DIV_E_C(double *src, double *dist);
 #ifdef __cplusplus
 }
 
-template<class T>
+template<class T = double>
 class Complex
 {
 public:
-	
+	Complex(T r, T i){buf[0] = r; buf[1] = i;}
+	Complex operator+(const Complex &c)
+	{
+		return Complex(buf[0] + c.buf[0], buf[1] + c.buf[1]); 
+	}
 protected:
 private:
+	T buf[2];
 };
 
+template<>
 class Complex<double>
 {
 public:
-	double *val;
+	double &r = val[0];
+	double &i = val[1];
 	Complex()
 	{
-		val = *Align(buf, 16);
+		val = (double*)Align(buf, 16);
 	}
 protected:
 private:
 	double buf[3];
+	double *val;
 };
 
 
