@@ -1,0 +1,15 @@
+MATH_UTIL = ${HOME}/Projects/MathUtil
+COMPLEX = ${MATH_UTIL}/Complex
+LIBRARY = ${MATH_UTIL}/Library
+UTILITY = ${MATH_UTIL}/Utility
+
+<<<<<<< HEAD
+INCLUDEDIR += ${MATH_UTIL}
+=======
+.c.o:
+	$(CC) ${CFLAGS} -c $< -I{MATH_UTIL}
+.cpp.o:
+	$(CXX) ${CXXFLAGS} -c $< -I{MATH_UTIL}
+.s.o:
+	$(CC) -c $<
+>>>>>>> 13d816d7697f2d6430cc54c72c38e86de0ed8422
