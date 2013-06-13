@@ -34,6 +34,13 @@ namespace zarath
 			return *this;
 		}
 
+		NumericalVectorSpace &operator+=(NumericalVectorSpace &&v)
+		{
+			for(uint32_t i = 0; i < dimension; ++i)
+				buf[i] += v.buf[i];
+			return *this;
+		}
+
 		NumericalVectorSpace operator-()
 		{
 			NumericalVectorSpace t;
@@ -93,14 +100,6 @@ namespace zarath
 		}
 	};
 
-/*	template<uint32_t dimension>
-	class NumericalVectorSpace<double, dimension>
-	{
-	public:
-	};
-*/	
-	template<uint32_t dimension>
-	using VectorD = NumericalVectorSpace<double, dimension>;
 }
 
 #endif

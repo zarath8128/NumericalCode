@@ -70,6 +70,13 @@ namespace zarath
 			return *(numerical_vector_space*)this;
 		}
 
+		numerical_vector_space &operator+=(numerical_vector_space &&v)
+		{
+			for(uint32_t i = 0; i < Dimension(); ++i)
+				(*this)(i) += v(i);
+			return *(numerical_vector_space*)this;
+		}
+
 		numerical_vector_space operator-()
 		{
 			numerical_vector_space t(Dimension());

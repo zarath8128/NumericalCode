@@ -58,10 +58,32 @@ namespace zarath
 				buf[i] += v.buf[i];
 			return *this;
 		}
+	
+		Vector operator-()
+		{
+			Vector t(dim);
+			for(uint32_t i = 0; i < dim; ++i)
+				t.buf[i] = -buf[i];
+			return t;
+		}	
+
+		Vector operator*(const numeric& s)
+		{
+			Vector t(dim);
+			for(uint32_t i = 0; i < dim; ++i)
+				t.buf[i] = buf[i]*s;
+			return t;	
+		}
+	
+		Vector &operator*=(const numeric& s)
+		{
+			for(uint32_t i = 0; i < dim; ++i)
+				buf[i] *= s;
+			return *this;
+		}
+		
 		Vector &operator=(const Vector &v)
 		{
-			dim = v.dim;
-			buf = new numeric[dim];
 			for(uint32_t i = 0; i < dim; ++i)
 				buf[i] = v.buf[i];
 			return *this;
