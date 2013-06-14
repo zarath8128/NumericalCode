@@ -1,6 +1,8 @@
 #ifndef ZARATH_NUMERICAL_VECTOR_SPACE_HPP
 #define ZARATH_NUMERICAL_VECTOR_SPACE_HPP
 
+#ifdef __cplusplus
+
 #include "AbstractVectorSpace.hpp"
 
 namespace zarath
@@ -101,5 +103,7 @@ namespace zarath
 	};
 
 }
+
+#endif
 
 #endif

@@ -11,8 +11,8 @@ constexpr int s = 30001;
 
 int main()
 {
-	Vector<float> v(s), u(s);
-	NumericalVectorSpace<float, s> w;
+	Vector<double> v(s), u(s);
+	NumericalVectorSpace<double, s> w;
 	VectorD<s> a;
 
 	double ds = 1.01;
@@ -23,13 +23,13 @@ int main()
 
 	clock_t t0 = clock();
 	for(int i = 0; i < 1000; ++i)
-		w = w*fs;	
+		w += w;	
 	clock_t t1 = clock();
 	for(int i = 0; i < 1000; ++i)
-		v = v*ds;
+		v += v;
 	clock_t t2 = clock();
 	for(int i = 0; i < 1000; ++i)
-		a = a*ds;
+		a += a;
 	clock_t t3 = clock();	
 
 	//std::cout << a << std::endl;

@@ -6,6 +6,7 @@
 //
 //**************************************************************/
 
+#ifdef __cplusplus
 
 #include <iostream>
 #include <cmath>
@@ -155,5 +156,7 @@ namespace zarath
 
 
 }
+
+#endif
 
 #endif
