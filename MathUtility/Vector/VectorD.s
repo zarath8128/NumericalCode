@@ -65,10 +65,11 @@ jump_table_add:
 .quad	.t15_add
 .align	0x10
 .t1_add:
-	MOVLPD	(%RDI)	,	%XMM1
+	MOVLPD	(%RDI)	,	%XMM0
+	MOVLPD	(%RSI)	,	%XMM1
 	MULPD	%XMM0	,	%XMM1
-	MOVLPD	%XMM1	,	(%RSI)
-	JMP	end_add:
+	MOVLPD	%XMM1	,	(%RCX)
+	JMP	end_add
 .t3_add:
 .t5_add:
 .t7_add:
