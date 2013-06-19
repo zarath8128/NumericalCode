@@ -4,6 +4,7 @@
 #include "Vector.h"
 #include "NumericalVectorSpace.hpp"
 #include "VectorD.hpp"
+#include "UnrolledVectorD.hpp"
 
 using namespace zarath;
 

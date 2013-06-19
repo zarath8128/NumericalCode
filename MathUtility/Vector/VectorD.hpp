@@ -8,6 +8,8 @@
 #include <cstdint>
 #else
 #include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
 #endif
 
 #ifdef __cplusplus
@@ -23,6 +25,7 @@ namespace zarath
 
 #ifdef __cplusplus
 	}
+#else
 #endif
 
 
@@ -132,6 +135,45 @@ namespace zarath
 	VectorD
 #endif
 	;
+#ifdef __cplusplus
+#else
+	inline void InitializeVectorD(uint32_t dimension, VectorD *v)
+	{
+		v->dimension = dimension;
+		v->unaligned_buf = (double*)malloc(dimension * sizeof(double));
+		v->buf = Align(v->unaligned_buf, 16);
+	}
+
+	inline VectorD CreateVectorD(uint32_t dimension)
+	{
+		VectorD t;
+		InitializeVectorD(dimension, &t);
+		return t;
+	}
+
+	inline void DeleteVectorD(VectorD *v)
+	{
+		free(v->unaligned_buf);
+		v->buf = v->unaligned_buf = 0;
+	}
+
+	inline void FinalizeVectorD(VectorD *v)
+	{
+		free(v->unaligned_buf);
+		v->buf = v->unaligned_buf = 0;
+	}
+
+	inline void PrintVectorD(VectorD *v)
+	{
+		for(uint32_t i = 0; i < v->dimension; ++i)
+			printf("%e\n", v->buf[i]);
+	}
+
+	inline void ADD_VectorD(VectorD *v, VectorD *w, VectorD *ans)
+	{
+		VectorD_ADD(v->buf, w->buf, v->dimension, ans->buf);
+	}
+#endif
 
 #ifdef __cplusplus
 }
@@ -151,3 +193,5 @@ namespace zarath
 #endif
 
 #endif
+
+

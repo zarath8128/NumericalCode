@@ -7,8 +7,8 @@ CXXFLAGS+=-std=c++0x
 HEADERFILES=AbstractVectorSpace.hpp NumericalVectorSpace.hpp UnrolledVectorD.hpp
 
 all	:test_c test_cpp
-test_c	:test.c VectorD.s VectorD.c
-	${CC} ${CFLAGS} test.c VectorD.s VectorD.c -o $@ -I.. ../Utility/Align.o
+test_c	:test.c VectorD.s UnrolledVectorD.s
+	${CC} ${CFLAGS} test.c VectorD.s UnrolledVectorD.s -o $@ -I.. ../Utility/Align.o
 
 test_cpp:test.cpp VectorD.s
 	${CXX} ${CXXFLAGS} test.cpp VectorD.s -o $@ -I.. ../Utility/Align.o
