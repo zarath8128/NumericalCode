@@ -8,26 +8,26 @@
 
 using namespace zarath;
 
-constexpr int s = 30001;
+constexpr int s = 300001;
 
 int main()
 {
-	Vector<double> v(s), u(s);
+//	Vector<double> v(s), u(s);
 	NumericalVectorSpace<double, s> w;
 	VectorD<s> a;
 
 	double ds = 1.01;
 	float fs = 1.01;
 
-	for(int i = 0; i < v.Dimension(); ++i)
-		a(i) = v(i) = w(i) = 1./(1 + i), u(i) = 2 + i*i;
+	for(int i = 0; i < s; ++i)
+		a(i) = /*v(i)*/ w(i) = 1./(1 + i)/*, u(i) = 2 + i*i*/;
 
 	clock_t t0 = clock();
 	for(int i = 0; i < 1000; ++i)
 		w += w;	
 	clock_t t1 = clock();
 	for(int i = 0; i < 1000; ++i)
-		v += v;
+		/*v += v*/;
 	clock_t t2 = clock();
 	for(int i = 0; i < 1000; ++i)
 		a += a;
