@@ -1,8 +1,9 @@
-#ifndef ZARATH_VECTOR_D_H
-#define ZARATH_VECTOR_D_H
+#ifndef ZARATH_VECTOR_H
+#define ZARATH_VECTOR_H
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 typedef struct tag_Vector
 {
@@ -20,5 +21,8 @@ void VectorAdd(Vector src, Vector *dist);
 void VectorSub(Vector src, Vector *dist);
 void VectorSca(double sca, Vector *dist);
 void VectorMov(Vector src, Vector *dist);
+double VectorNorm(Vector v);
+double VectorMaxNorm(Vector v);
+double VectorDot(Vector v, Vector w);
 
 #endif

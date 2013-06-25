@@ -44,3 +44,27 @@ void VectorMov(Vector src, Vector *dist)
 		dist->val[i] = src.val[i];
 }
 
+double VectorNorm(Vector v)
+{
+	double t = 0;
+	for(unsigned int i = 0; i < v.dim; ++i)
+		t += v.val[i] * v.val[i];
+	return sqrt(t);
+}
+
+double VectorMaxNorm(Vector v)
+{
+	double t = v.val[0];
+	for(unsigned int i = 1; i < v.dim; ++i)
+		t = ((((v.val[i]>0)?(v.val[i]):(-v.val[i])) < t)?(t):((v.val[i]>0)?(v.val[i]):(-v.val[i])));
+	return t;
+}
+
+double VectorDot(Vector v, Vector w)
+{
+	double t = 0;
+	for(unsigned int i = 0; i < v.dim; ++i)
+		t += v.val[i] * w.val[i];
+	return t;
+}
+
