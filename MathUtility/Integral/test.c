@@ -4,6 +4,7 @@
 #include "EulerMethod.h"
 #include "RKMethod.h"
 #include "RKFMethod.h"
+#include "DPMethod.h"
 
 void f(Vector arg, Vector param, Vector *ans)
 {
@@ -13,17 +14,9 @@ void f(Vector arg, Vector param, Vector *ans)
 
 int main()
 {
-	const int count = 1000001;
 	double e = sin(1);
 	Vector v = CreateVector(2), w = CreateVector(2);
-	for(int i = 1; i < count; i *= 10)
-	{
-		v.val[0] = 0;
-		v.val[1] = 0;
-		RKMethodIterate(v, v, &w, 1./i, i, f);
-		PrintVector(w);
-		printf("%10d:%22.14e\n",i , fabs(e - w.val[1])/e);
-	}
+
 	v.val[0] = 0;
 	v.val[1] = 0;
 	double t = 0, dt = 0.0001, err = 1e-14;
@@ -34,7 +27,19 @@ int main()
 		++c;
 	}while(t < 1);
 
-	printf("%10d:%22.14e\n",c , fabs(sin(t) - v.val[1])/sin(t));
+	printf("RKF:%10d:%22.14e\n",c , fabs(sin(t) - v.val[1])/sin(t));
+
+	v.val[0] = 0;
+	v.val[1] = 0;
+	t = 0, dt = 0.0001;
+	c = 0;
+	do{
+		t += DPMethod(v, v, &w, &dt, err, err, f);
+		VectorMov(w, &v);
+		++c;
+	}while(t < 1);
+
+	printf("DP:%10d:%22.14e\n",c , fabs(sin(t) - v.val[1])/sin(t));
 
 	printf("Hallo World!\n");
 	return 0;
