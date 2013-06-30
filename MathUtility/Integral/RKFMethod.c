@@ -1,96 +1,72 @@
 #include "RKFMethod.h"
 
-void RKFMethod(Vector arg, Vector param, Vector *ans, double *dt, double rel_err, double abs_err, V_VFunc f)
+typedef unsigned int uint;
+
+double RKFMethod(Vector arg, Vector param, Vector *ans, double *dt, double rel_err, double abs_err, V_VFunc f)
 {
 	Vector k1 = CreateVector(ans->dim), k2 = CreateVector(ans->dim),  k3 = CreateVector(ans->dim), k4 = CreateVector(ans->dim), k5 = CreateVector(ans->dim), k6 = CreateVector(ans->dim);
 	Vector ans_buf = CreateVector(ans->dim);
 
 	double delta = *dt;
+	double max_abs_err = 0, max_rel_err = 0, flag_err = -1;
 
-	f(arg, param, &k1);	
+	do{
+		f(arg, param, &k1);
 
-	VectorMov(k1, ans);
-	VectorSca(0.25*delta, ans);
-	VectorAdd(arg, ans);
-	f(*ans, param, &k2);
+		for(uint i = 0; i < ans->dim; ++i)
+			ans->val[i] = arg.val[i] + delta*(1./4.)*k1.val[i];
 
-	VectorMov(k1, ans);
-	VectorSca(3./32*delta, ans);
-	VectorMov(k2, &ans_buf);
-	VectorSca(9./32*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorAdd(arg, ans);
-	f(*ans, param, &k3);
+		f(*ans, param, &k2);
 
-	VectorMov(k1, ans);
-	VectorSca(1932./2197*delta, ans);
-	VectorMov(k2, &ans_buf);
-	VectorSca(-7200./2197*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorMov(k3, &ans_buf);
-	VectorSca(7296./2197*delta, &ans_buf);
-	f(*ans, param, &k4);
+		for(uint i = 0; i < ans->dim; ++i)
+			ans->val[i] = arg.val[i] + delta*((3./32.)*k1.val[i] + (9./32.)*k2.val[i]);
 
-	VectorMov(k1, ans);
-	VectorSca(439./216*delta, ans);
-	VectorMov(k2, &ans_buf);
-	VectorSca(-8*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorMov(k3, &ans_buf);
-	VectorSca(3680./513*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorMov(k4, &ans_buf);
-	VectorSca(845./4104*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	f(*ans, param, &k5);
+		f(*ans, param, &k3);
 
-	VectorMov(k1, ans);
-	VectorSca(-8./27*delta, ans);
-	VectorMov(k2, &ans_buf);
-	VectorSca(2*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorMov(k3, &ans_buf);
-	VectorSca(-3544./2565*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorMov(k4, &ans_buf);
-	VectorSca(1859./4104*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorMov(k5, &ans_buf);
-	VectorSca(-11./40*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	f(*ans, param, &k6);
-	
-	VectorMov(k1, ans);
-	VectorSca(16./135*delta, ans);
-	VectorMov(k3, &ans_buf);
-	VectorSca(6656./12825*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorMov(k4, &ans_buf);
-	VectorSca(28561./56430*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorMov(k5, &ans_buf);
-	VectorSca(-9./50*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorMov(k6, &ans_buf);
-	VectorSca(2./55*delta, &ans_buf);
-	VectorAdd(ans_buf, ans);
-	VectorAdd(arg, ans);
+		for(uint i = 0; i < ans->dim; ++i)
+			ans->val[i] = arg.val[i] + delta*((1932./2197.)*k1.val[i] - (7200./2197.)*k2.val[i] + (7296./2197.)*k3.val[i]);
 
-	VectorMov(k1, &ans_buf);
-	VectorSca(25./216*delta, &ans_buf);
-	VectorMov(k3, &k2);
-	VectorSca(1408./2565*delta, &k2);
-	VectorAdd(k2, &ans_buf);
-	VectorMov(k4, &k2);
-	VectorSca(2197./4104*delta, &k2);
-	VectorAdd(k2, &ans_buf);
-	VectorMov(k5, &k2);
-	VectorSca(-1./5*delta, &k2);
-	VectorAdd(k2, &ans_buf);
-	VectorAdd(arg, &ans_buf);
+		f(*ans, param, &k4);
 
-	VectorSub(*ans, &ans_buf);
+		for(uint i = 0; i < ans->dim; ++i)
+			ans->val[i] = arg.val[i] + delta*((439./216.)*k1.val[i] - 8.*k2.val[i] + (3680./513.)*k3.val[i] - (845./4104.)*k4.val[i]);
 
+		f(*ans, param, &k5);
+
+		for(uint i = 0; i < ans->dim; ++i)
+			ans->val[i] = arg.val[i] + delta*(-(8./27.)*k1.val[i] + 2.*k2.val[i] - (3544./2565.)*k3.val[i] + (1859./4104.)*k4.val[i] - (11./40.)*k5.val[i]);
+
+		f(*ans, param, &k6);
+
+		for(uint i = 0; i < ans->dim; ++i)
+			ans_buf.val[i] = arg.val[i] + delta*((25./216.)*k1.val[i] + (1408./2565.)*k3.val[i] + (2197./4104.)*k4.val[i] - (1./5.)*k5.val[i]);
+
+		for(uint i = 0; i < ans->dim; ++i)
+			ans->val[i] = arg.val[i] + delta*((16./135.)*k1.val[i] + (6656./12825.)*k3.val[i] + (28561./56430.)*k4.val[i] - (9./50.)*k5.val[i] + (2./55.)*k6.val[i]);
+
+
+		max_abs_err = MaxAbsoluteError(*ans, ans_buf);
+
+		if(max_abs_err > abs_err)
+		{
+			delta *=  pow(abs_err/max_abs_err, 1./5);
+			continue;
+		}
+
+		max_rel_err = MaxRelativeError(*ans, ans_buf);
+
+
+		if(max_rel_err > rel_err)
+		{
+			delta *= pow(rel_err/max_rel_err, 1./5);
+			continue;
+		}
+
+		flag_err = MAX(max_rel_err, max_abs_err);
+
+	}while(flag_err == -1);
+
+	*dt = ((flag_err == 0)?(*dt*2):(delta * pow(MAX(rel_err, abs_err)/flag_err, 1./5)));
 
 	DeleteVector(&k1);
 	DeleteVector(&k2);
@@ -99,5 +75,7 @@ void RKFMethod(Vector arg, Vector param, Vector *ans, double *dt, double rel_err
 	DeleteVector(&k5);
 	DeleteVector(&k6);
 	DeleteVector(&ans_buf);
+
+	return delta;
 }
 
