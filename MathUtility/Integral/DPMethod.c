@@ -46,7 +46,6 @@ double DPMethod(Vector arg, Vector param, Vector *ans, double *dt, double rel_er
 		for(uint i = 0; i < ans->dim; ++i)
 			ans_buf.val[i] = arg.val[i] + delta*((5179./57600.)*k1.val[i] + (7571./16695.)*k3.val[i] + (393./640.)*k4.val[i] - (92097./339200.)*k5.val[i] + (187./2100.)*k6.val[i] + (1./40.)*k7.val[i]);
 
-		//VectorMov(k7, ans);
 		for(uint i = 0; i < ans->dim; ++i)
 			ans->val[i] = arg.val[i] + delta*((35./384.)*k1.val[i] + (500./1113.)*k3.val[i] + (125./192.)*k4.val[i] - (2187./6784.)*k5.val[i] + (11./84.)*k6.val[i]);
 
@@ -55,7 +54,7 @@ double DPMethod(Vector arg, Vector param, Vector *ans, double *dt, double rel_er
 
 		if(max_abs_err > abs_err)
 		{
-			delta *=  pow(abs_err/max_abs_err, 1./5);
+			delta *= pow(abs_err/max_abs_err, 1./5);
 			continue;
 		}
 
