@@ -1,5 +1,5 @@
 CC=icc
-CXX=g++-4.7.3
+CXX=icpc
 
 INCLUDEDIR+=-I../
 CFLAGS+=-std=c99 ${INCLUDEDIR}
@@ -15,7 +15,7 @@ CXXFLAGS+=-std=c++0x ${INCLUDEDIR}
 	@touch $@
 
 HEADERFILES=
-OBJECTS=EulerMethod.o ../Vector/Vector.o RKMethod.o RKFMethod.o Error.o DPMethod.o
+OBJECTS=EulerMethod.o ../Vector/Vector.o RKMethod.o RK3_8Method.o RKFMethod.o Error.o DPMethod.o I_EulerMethod.o HeunMethod.o
 
 all	:test_c test_cpp
 test_c	:test.c ${OBJECTS}
