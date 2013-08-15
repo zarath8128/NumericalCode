@@ -4,8 +4,8 @@ CXXFLAGS=${FLAGS} -std=c++0x
 LIBRARY=GL GLU glut
 LIBRARYPATH=
 
-GLUT_ROOT=keyboard.o display.o
-OBJECTS=${addprefix GLUT_root/, ${GLUT_ROOT}}
+GLUT_ROOT=keyboard.o display.o reshape.o
+OBJECTS=${addprefix GLUT_root/, ${GLUT_ROOT}} N_body_obj.o
 TARGET=N_body ${OBJECTS}
 
 .PHONY:all clean force
